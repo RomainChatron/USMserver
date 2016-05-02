@@ -9,6 +9,7 @@ import java.util.UUID;
 import java.util.ArrayList;
 
 import dataBase.ConnectionDB;
+import dataBase.UserDB;
 import vInterface._User;
 
 public class User extends UnicastRemoteObject implements _User {
@@ -23,6 +24,7 @@ public class User extends UnicastRemoteObject implements _User {
 	private String lastName;
 	private String email;
 	private String job;
+	private boolean add;
 
 	public User() throws RemoteException {
 		super();
@@ -97,6 +99,7 @@ public class User extends UnicastRemoteObject implements _User {
 	public  String password() throws RemoteException  {
 		return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 8);
 	}
+	
 
 	@Override
 	public String getUserName() throws RemoteException {
