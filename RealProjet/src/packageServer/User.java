@@ -14,7 +14,7 @@ public class User extends UnicastRemoteObject implements _User {
 	private String email;
 	private String job;
 
-	protected User() throws RemoteException {
+	public User() throws RemoteException {
 		super();
 	}
 

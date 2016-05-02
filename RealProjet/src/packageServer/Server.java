@@ -3,9 +3,11 @@ package packageServer;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
+import dataBase.GroupDB;
 import dataBase.UserDB;
+import dataBase.UserGroupDB;
 import vInterface._ObjectBuilder;
-import vInterface._UserDB;
+import vInterfaceDB.*;
 
 public class Server {	
 	
@@ -15,14 +17,20 @@ public class Server {
 		
 		String urlObjectBuilder = "rmi://"+IPSERVER+":"+PORT+"/ObjectBuilder";
 		String urlUserDB = "rmi://"+IPSERVER+":"+PORT+"/UserDB";
+		String urlUserGroupDB = "rmi://"+IPSERVER+":"+PORT+"/UserGroupDB";
+		String urlGroupDB = "rmi://"+IPSERVER+":"+PORT+"/GroupDB";
 
 		try {
 			_ObjectBuilder ob = new ObjectBuilder();
 			_UserDB userDB = new UserDB();
+			_UserGroupDB userGroupDB = new UserGroupDB();
+			_GroupDB GroupDB = new GroupDB();
 
 			LocateRegistry.createRegistry(PORT);
 			Naming.rebind(urlObjectBuilder, ob);
 			Naming.rebind(urlUserDB, userDB);
+			Naming.rebind(urlUserGroupDB, userGroupDB);
+			Naming.rebind(urlGroupDB, GroupDB);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

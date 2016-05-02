@@ -5,7 +5,6 @@ import java.rmi.server.UnicastRemoteObject;
 
 import packageServer.User;
 import vInterface._ObjectBuilder;
-import vInterface._UserDB;
 import dataBase.UserDB;
 
 public class ObjectBuilder extends UnicastRemoteObject implements _ObjectBuilder {
