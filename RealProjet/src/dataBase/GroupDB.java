@@ -132,9 +132,8 @@ public class GroupDB extends UnicastRemoteObject implements _GroupDB {
 	public void removeGroup(final int idG) {
 		try {
 			ConnectionDB con = new ConnectionDB();
-			String req = "DELETE FROM `Group` WHERE idG = ?";
+			String req = "DELETE FROM `group` WHERE idG ="+idG;
 			PreparedStatement st = con.getConnection().prepareStatement(req);
-			st.setInt(1, idG);
 			st.executeUpdate();
 			System.out.println("Group: "+idG+" has been deleted");
 			st.close();
