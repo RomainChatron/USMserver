@@ -48,16 +48,17 @@ public class GroupDB extends UnicastRemoteObject implements _GroupDB {
         try {
             ConnectionDB con = new ConnectionDB();
             ArrayList<_Group> info = new ArrayList<_Group>();
-            String req = "SELECT nameG, descG FROM Group";
+            String req = "SELECT idG, nameG, descG FROM `group`";
             Statement stmt = con.getConnection().createStatement();
             ResultSet rset = stmt.executeQuery(req);
             Group g;
             while(rset.next()) {
-                 g = new Group(rset.getString(1), rset.getString(2));
+                 g = new Group(rset.getInt(1), rset.getString(2), rset.getString(3));
                  info.add(g);
             }
             return info;
         } catch(SQLException | RemoteException e) {
+        	e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
