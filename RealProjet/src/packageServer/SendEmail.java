@@ -12,7 +12,6 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class SendEmail.
  */

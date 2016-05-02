@@ -9,7 +9,6 @@ import java.sql.Statement;
 
 import vInterfaceDB._DiaryDB;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Diary.
  */

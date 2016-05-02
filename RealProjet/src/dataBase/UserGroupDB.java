@@ -10,7 +10,6 @@ import java.util.ArrayList;
 
 import vInterfaceDB._UserGroupDB;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserGroupDB.
  */

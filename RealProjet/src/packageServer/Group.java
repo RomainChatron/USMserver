@@ -40,7 +40,6 @@ public class Group extends UnicastRemoteObject implements _Group {
 	
 	@Override
 	public int getIdG() throws RemoteException {
-		// TODO Auto-generated method stub
 		return idG;
 	}
 	

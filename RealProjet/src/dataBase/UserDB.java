@@ -16,7 +16,6 @@ import packageServer.User;
 import vInterface._User;
 import vInterfaceDB._UserDB;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class UserDB.
  */

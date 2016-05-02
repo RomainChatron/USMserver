@@ -12,7 +12,6 @@ import packageServer.Group;
 import vInterfaceDB._GroupDB;
 
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class GroupDB.
  */
