@@ -15,6 +15,7 @@ import vInterfaceDB._UserGroupDB;
 /**
  * The Class UserGroupDB.
  */
+@SuppressWarnings("serial")
 public class UserGroupDB extends UnicastRemoteObject implements _UserGroupDB{
 	
 	public UserGroupDB() throws RemoteException {
@@ -86,7 +87,6 @@ public class UserGroupDB extends UnicastRemoteObject implements _UserGroupDB{
         try {
             ConnectionDB con = new ConnectionDB();
             ArrayList<_User> info = new ArrayList<>();
-            User u = new User();
             String req = "SELECT userName, firstName, lastName, email, job FROM UserGroup NATURAL JOIN User WHERE idG="+idG+"";
             Statement stmt = con.getConnection().createStatement();
             ResultSet rset = stmt.executeQuery(req);

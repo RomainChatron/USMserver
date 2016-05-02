@@ -16,6 +16,7 @@ import vInterfaceDB._GroupDB;
 /**
  * The Class GroupDB.
  */
+@SuppressWarnings("serial")
 public class GroupDB extends UnicastRemoteObject implements _GroupDB {
 	
 	public GroupDB() throws RemoteException {

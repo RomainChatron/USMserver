@@ -12,6 +12,7 @@ import vInterfaceDB._DiaryDB;
 /**
  * The Class Diary.
  */
+@SuppressWarnings("serial")
 public class DiaryDB extends UnicastRemoteObject implements _DiaryDB {
 	
 	public DiaryDB() throws RemoteException {

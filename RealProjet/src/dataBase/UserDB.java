@@ -1,16 +1,12 @@
 package dataBase;
 
-import java.lang.reflect.InvocationTargetException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
-
 import packageServer.SendEmail;
 import packageServer.User;
 import vInterface._User;
@@ -19,6 +15,7 @@ import vInterfaceDB._UserDB;
 /**
  * The Class UserDB.
  */
+@SuppressWarnings("serial")
 public class UserDB extends UnicastRemoteObject implements _UserDB {
 	
 	public UserDB() throws RemoteException {
@@ -51,15 +48,12 @@ public class UserDB extends UnicastRemoteObject implements _UserDB {
 	}	
 	
 	public User getUsers (String userName) {
-		HashMap<String, String> map = new HashMap<String, String>() ;
         try {
             ConnectionDB con = new ConnectionDB();
-            Class<? extends _User> info = null;
             String req = "SELECT firstName, lastName, email, job FROM user WHERE userName='"+userName+"' LIMIT 1";
             Statement stmt = con.getConnection().createStatement();
             //stmt.setString(1, userName);
             ResultSet rset = stmt.executeQuery(req);
-            ResultSetMetaData rsetMeta = rset.getMetaData();
             User cls = new User();
             if(rset.next()) {
             	
