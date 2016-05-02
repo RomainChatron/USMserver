@@ -50,7 +50,7 @@ public class Group extends UnicastRemoteObject implements _Group {
 		this.setMembers(new ArrayList<_User>());
 		this.setName(name);
 		this.setDescription(desc);
-		this.setIdG(idG);
+		this.setIdG(id);
 	}
 	
 	@Override
