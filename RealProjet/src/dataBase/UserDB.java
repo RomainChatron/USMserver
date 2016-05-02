@@ -104,6 +104,7 @@ public class UserDB extends UnicastRemoteObject implements _UserDB {
 			stmt.close();
 			con.closeDB();
 		} catch(SQLException e) {
+			e.getStackTrace();
 			throw new RuntimeException(e);
 		}
 		
