@@ -1,8 +1,13 @@
 package packageServer;
 
+import java.beans.Statement;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.UUID;
 
+import dataBase.ConnectionDB;
 import vInterface._User;
 
 public class User extends UnicastRemoteObject implements _User {
@@ -16,6 +21,75 @@ public class User extends UnicastRemoteObject implements _User {
 
 	protected User() throws RemoteException {
 		super();
+	}
+	
+	protected User(final String firstName, final String lastName, final String email, final String job) throws RemoteException  {
+		String username = userName(firstName, lastName);
+		String password = password();
+		setUserName(username);
+		setPassWord(password);
+		setFirstName(firstName);
+		setLastName(lastName);
+		setEmail(email);
+		setJob(job);
+	}
+	
+	/**
+	 * Unique user name.
+	 *
+	 * @param userName the user name
+	 * @param i the i
+	 * @param stmt the stmt
+	 * @return the string
+	 */
+	public  String uniqueUserName(String userName, char i) throws RemoteException  {
+		String userNameInit = userName;
+		try {
+			ConnectionDB con = new ConnectionDB();
+			Statement stmt = (Statement) con.getConnection().createStatement();
+			ResultSet rset = ((java.sql.Statement) stmt).executeQuery("SELECT userName FROM User");
+			while(rset.next()) {
+				if(rset.getString(1).equals(userName)){
+					userName = userNameInit + i;
+					i++;
+				}
+			}
+			rset.close();
+			con.closeDB();
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return userName;
+	}
+	
+	/**
+	 * User name.
+	 *
+	 * @param firstName the first name
+	 * @param lastName the last name
+	 * @param stmt the stmt
+	 * @return the string
+	 */
+	public  String userName(final String firstName, final String lastName) throws RemoteException  {
+		String userName = "";
+		if(lastName.length()>6) {
+			userName = lastName.substring(0,7)+firstName.substring(0,1);
+		} else if(firstName.length()>8-lastName.length()) {
+			userName = lastName+firstName.substring(0,8-lastName.length());
+		} else userName = lastName+firstName;
+		userName = userName.toLowerCase();
+		return uniqueUserName(userName, '1');
+	}
+
+	
+	/**
+	 * Password.
+	 *
+	 * @return the string
+	 */
+	public  String password() throws RemoteException  {
+		return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 8);
 	}
 
 	@Override

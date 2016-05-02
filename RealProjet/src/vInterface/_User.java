@@ -5,6 +5,11 @@ import java.rmi.RemoteException;
 
 public interface _User extends Remote {
 
+	
+	public  String uniqueUserName(String userName, char i) throws RemoteException ;
+	public  String userName(final String firstName, final String lastName) throws RemoteException ;
+	public  String password() throws RemoteException;
+	
 	public String getUserName() throws RemoteException;
 	public String getPassWord() throws RemoteException;
 	public String getFirstName() throws RemoteException;
