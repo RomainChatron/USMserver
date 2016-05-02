@@ -4,6 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import dataBase.GroupDB;
 import vInterface._Group;
 import vInterface._User;
 
@@ -22,6 +23,19 @@ public class Group extends UnicastRemoteObject implements _Group {
 		super();
 		members = new ArrayList<_User>();
 		admins = new ArrayList<_User>();
+	}
+	
+	/**
+	 * Create group with name, desc
+	 * @param name : a string which represents the name of the group
+	 * @param desc : a string which represents the description of the group
+	 */
+	public Group(String name, String desc) throws RemoteException{
+		super();
+		this.setAdmins(new ArrayList<_User>());
+		this.setMembers(new ArrayList<_User>());
+		this.setName(name);
+		this.setDescription(desc);
 	}
 	
 	@Override
