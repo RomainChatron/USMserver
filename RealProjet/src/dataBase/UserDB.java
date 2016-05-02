@@ -91,8 +91,8 @@ public class UserDB extends UnicastRemoteObject implements _UserDB {
 	 *
 	 * @return a list composed of all the users
 	 */
-	public  ArrayList<User> allUser() throws RemoteException {
-		ArrayList<User> u = new ArrayList<User>();
+	public  ArrayList<_User> allUser() throws RemoteException {
+		ArrayList<_User> u = new ArrayList<_User>();
 		try {
 			ConnectionDB con = new ConnectionDB();
 			Statement stmt = con.getConnection().createStatement();
