@@ -94,19 +94,14 @@ public class UserDB extends UnicastRemoteObject implements _UserDB {
 	public  ArrayList<_User> allUser() throws RemoteException {
 		ArrayList<_User> u = new ArrayList<_User>();
 		try {
-			System.out.println("on est la");
-			
-		
 			ConnectionDB con = new ConnectionDB();
 	        String req = "SELECT userName from user";
 	        Statement stmt = con.getConnection().createStatement();
 	        ResultSet rset = stmt.executeQuery(req);
 			
-			System.out.println("on est la 2");
 			while(rset.next()) {
 				u.add(getUsers(rset.getString(1)));
 			}
-			System.out.println("on est la 3");
 			rset.close();
 			stmt.close();
 			con.closeDB();
