@@ -87,6 +87,31 @@ public class UserDB extends UnicastRemoteObject implements _UserDB {
 	
 	
 	/**
+	 * All users saved in the dataBase
+	 *
+	 * @return a list composed of all the users
+	 */
+	public  ArrayList<User> allUser() throws RemoteException {
+		ArrayList<User> u = new ArrayList<User>();
+		try {
+			ConnectionDB con = new ConnectionDB();
+			Statement stmt = con.getConnection().createStatement();
+			ResultSet rset = stmt.executeQuery("SELECT username from users");
+			while(rset.next()) {
+				u.add(getUsers(rset.getString(1)));
+			}
+			rset.close();
+			stmt.close();
+			con.closeDB();
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+		return u;
+	}
+
+	
+	/**
 	 * Adds the user.
 	 *
 	 * @param firstName the first name
