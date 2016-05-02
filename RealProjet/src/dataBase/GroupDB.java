@@ -139,6 +139,7 @@ public class GroupDB extends UnicastRemoteObject implements _GroupDB {
 			st.close();
 			con.closeDB();
 		} catch(SQLException e) {
+			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
 	}
