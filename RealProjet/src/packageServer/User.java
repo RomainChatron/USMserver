@@ -12,6 +12,10 @@ import vInterface._User;
 
 public class User extends UnicastRemoteObject implements _User {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String userName;
 	private String passWord;
 	private String firstName;
