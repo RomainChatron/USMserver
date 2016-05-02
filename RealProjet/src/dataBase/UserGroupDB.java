@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import packageServer.User;
+import vInterface._User;
 import vInterfaceDB._UserGroupDB;
 
 /**
@@ -79,4 +81,26 @@ public class UserGroupDB extends UnicastRemoteObject implements _UserGroupDB{
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public ArrayList<_User> getAllUsersGroup(final int idG) {
+        try {
+            ConnectionDB con = new ConnectionDB();
+            ArrayList<_User> info = new ArrayList<>();
+            User u = new User();
+            String req = "SELECT userName, firstName, lastName, email, job FROM UserGroup NATURAL JOIN User WHERE idG="+idG+"";
+            Statement stmt = con.getConnection().createStatement();
+            ResultSet rset = stmt.executeQuery(req);
+            for(int i = 0 ; rset.next() ; i++) {
+            	info.add(new User());
+            	info.get(i).setUserName(rset.getString(1));
+            	info.get(i).setFirstName(rset.getString(2));
+            	info.get(i).setLastName(rset.getString(3));
+            	info.get(i).setEmail(rset.getString(4));
+            	info.get(i).setJob(rset.getString(5));
+            }
+            return info;
+        } catch(SQLException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

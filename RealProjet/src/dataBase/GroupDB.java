@@ -52,7 +52,9 @@ public class GroupDB extends UnicastRemoteObject implements _GroupDB {
             ResultSet rset = stmt.executeQuery(req);
             Group g = null;
             if(rset.next()) {
-                 g = new Group(rset.getString(1), rset.getString(2));/*TODO: généricité*/
+                 g = new Group(rset.getString(1), rset.getString(2));
+                 UserGroupDB ugDB = new UserGroupDB();
+                 g.setMembers(ugDB.getAllUsersGroup(idG)); /*TODO: recup liste des membres*/
             }
             return g;
         } catch(SQLException | RemoteException e) {
