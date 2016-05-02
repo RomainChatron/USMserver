@@ -1,23 +1,30 @@
 package packageServer;
 
-import java.beans.Statement;
+import java.sql.Statement;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
+import java.util.ArrayList;
 
 import dataBase.ConnectionDB;
+import dataBase.UserDB;
 import vInterface._User;
 
 public class User extends UnicastRemoteObject implements _User {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String userName;
 	private String passWord;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String job;
+	private boolean add;
 
 	public User() throws RemoteException {
 		super();
@@ -42,12 +49,12 @@ public class User extends UnicastRemoteObject implements _User {
 	 * @param stmt the stmt
 	 * @return the string
 	 */
-	public  String uniqueUserName(String userName, char i) throws RemoteException  {
+	public  String uniqueUserName(String userName, char i) {
 		String userNameInit = userName;
 		try {
 			ConnectionDB con = new ConnectionDB();
-			Statement stmt = (Statement) con.getConnection().createStatement();
-			ResultSet rset = ((java.sql.Statement) stmt).executeQuery("SELECT userName FROM User");
+			Statement stmt = con.getConnection().createStatement();
+			ResultSet rset = stmt.executeQuery("SELECT userName FROM User");
 			while(rset.next()) {
 				if(rset.getString(1).equals(userName)){
 					userName = userNameInit + i;
@@ -55,6 +62,7 @@ public class User extends UnicastRemoteObject implements _User {
 				}
 			}
 			rset.close();
+			stmt.close();
 			con.closeDB();
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
@@ -91,6 +99,7 @@ public class User extends UnicastRemoteObject implements _User {
 	public  String password() throws RemoteException  {
 		return UUID.randomUUID().toString().replaceAll("-", "").substring(0, 8);
 	}
+	
 
 	@Override
 	public String getUserName() throws RemoteException {
