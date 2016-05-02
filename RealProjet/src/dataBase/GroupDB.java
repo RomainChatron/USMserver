@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import packageServer.Group;
+import vInterface._Group;
 import vInterfaceDB._GroupDB;
 
 
@@ -42,6 +43,24 @@ public class GroupDB extends UnicastRemoteObject implements _GroupDB {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public ArrayList<_Group> getAllGroups() throws RemoteException {
+        try {
+            ConnectionDB con = new ConnectionDB();
+            ArrayList<_Group> info = new ArrayList<_Group>();
+            String req = "SELECT nameG, descG FROM Group";
+            Statement stmt = con.getConnection().createStatement();
+            ResultSet rset = stmt.executeQuery(req);
+            Group g;
+            while(rset.next()) {
+                 g = new Group(rset.getString(1), rset.getString(2));
+                 info.add(g);
+            }
+            return info;
+        } catch(SQLException | RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 	public Group getGroup(int idG) {
         try {
@@ -71,7 +90,7 @@ public class GroupDB extends UnicastRemoteObject implements _GroupDB {
             ResultSet rset = stmt.executeQuery(req);
             Group g;
             while(rset.next()) {
-                 g = new Group(rset.getString(1), rset.getString(2));/*TODO: généricité
+                 g = new Group(rset.getString(1), rset.getString(2));/*TODO: gï¿½nï¿½ricitï¿½
                  info.add(g);
             }
             return info;
