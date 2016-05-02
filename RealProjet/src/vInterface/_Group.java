@@ -17,7 +17,7 @@ public interface _Group extends Remote {
 	//public _User getMember(par nom ?) throws RemoteException;
 	public ArrayList<_User> getListAdmin() throws RemoteException;
 	//public _User getAdmin(par nom ?) throws RemoteException;
-	//public _Chat getChat() throws RemoteException;
+	public _Chat getChat() throws RemoteException;
 	//public _Diary getDiary() throws RemoteException;
 	
 	/*

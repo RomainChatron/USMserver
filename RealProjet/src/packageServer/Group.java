@@ -5,6 +5,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import dataBase.GroupDB;
+import vInterface._Chat;
 import vInterface._Group;
 import vInterface._User;
 
@@ -15,7 +16,7 @@ public class Group extends UnicastRemoteObject implements _Group {
 	private String description; 
 	private ArrayList<_User> members;
 	private ArrayList<_User> admins;
-	//private Chat chat;
+	private Chat chat;
 	//private Diary diary;
 	
 	
@@ -122,6 +123,11 @@ public class Group extends UnicastRemoteObject implements _Group {
 	@Override
 	public boolean removeAdmin(_User admin) throws RemoteException {
 		return admins.remove(admin);
+	}
+
+	@Override
+	public _Chat getChat() throws RemoteException {
+		return chat;
 	}
 
 }

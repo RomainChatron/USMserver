@@ -10,6 +10,7 @@ import vInterface._Task;
 public interface _TaskDB extends Remote {
 	public void addTask(final String nameT, final String descT, final String deadLine, final int idG, final String userName, final TypeTask tt) throws RemoteException;
 	public ArrayList<_Task> getTasks(final String userName) throws RemoteException ;
+	public ArrayList<_Task> getTasks(final int idG) throws RemoteException ;
 	public void updateTask(final int idT, final String nameT, final String descT, final String deadLine, final int idG, final String userName, final TypeTask typeT) throws RemoteException ;
 	public void updateTaskName(final int idT, final String nameT) throws RemoteException ;
 	public void updateTaskDesc(final int idT, final String descT) throws RemoteException ;

@@ -72,6 +72,26 @@ public class TaskDB extends UnicastRemoteObject implements _TaskDB {
             throw new RuntimeException(e);
         }
     }
+	
+	public ArrayList<_Task> getTasks(final int idG) {
+        try {
+            ConnectionDB con = new ConnectionDB();
+            ArrayList<_Task> info = new ArrayList<>();
+            String req = "SELECT idT, nameT, descT, deadLineT, userName, typeT FROM `Task` WHERE idG=?";
+            PreparedStatement stmt = con.getConnection().prepareStatement(req);
+            stmt.setInt(1, idG);
+            ResultSet rset = stmt.executeQuery();
+            Task t;
+            while(rset.next()) {
+                t = new Task(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4), idG, rset.getString(5), TypeTask.valueOf(rset.getInt(6)));
+                info.add(t);
+            }
+            return info;
+        } catch(SQLException | RemoteException e) {
+        	e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 
 
 	public void updateTask(final int idT, final String nameT, final String descT, final String deadLine, final int idG, final String userName, final TypeTask typeT) {
