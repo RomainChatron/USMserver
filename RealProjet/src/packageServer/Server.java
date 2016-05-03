@@ -7,6 +7,7 @@ import dataBase.GroupDB;
 import dataBase.TaskDB;
 import dataBase.UserDB;
 import dataBase.UserGroupDB;
+import vInterface._ChatServer;
 import vInterface._ObjectBuilder;
 import vInterfaceDB.*;
 
@@ -21,6 +22,7 @@ public class Server {
 		String urlUserGroupDB = "rmi://"+IPSERVER+":"+PORT+"/UserGroupDB";
 		String urlGroupDB = "rmi://"+IPSERVER+":"+PORT+"/GroupDB";
 		String urlTaskDB = "rmi://"+IPSERVER+":"+PORT+"/TaskDB";
+		String urlChatServer = "rmi://"+IPSERVER+":"+PORT+"/ChatServer";
 
 		try {
 			_ObjectBuilder ob = new ObjectBuilder();
@@ -28,6 +30,7 @@ public class Server {
 			_UserGroupDB userGroupDB = new UserGroupDB();
 			_GroupDB GroupDB = new GroupDB();
 			_TaskDB TaskDB = new TaskDB();
+			_ChatServer ChatServer = new ChatServer();
 
 			LocateRegistry.createRegistry(PORT);
 			Naming.rebind(urlObjectBuilder, ob);
@@ -35,6 +38,7 @@ public class Server {
 			Naming.rebind(urlUserGroupDB, userGroupDB);
 			Naming.rebind(urlGroupDB, GroupDB);
 			Naming.rebind(urlTaskDB, TaskDB);
+			Naming.rebind(urlChatServer, ChatServer);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
