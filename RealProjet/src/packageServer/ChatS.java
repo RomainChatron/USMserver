@@ -42,7 +42,6 @@ public class ChatS extends UnicastRemoteObject implements _ChatS{
 	@Override
 	public void postMessage(String message) throws RemoteException {
 		for(int i = 0 ; i < listeAbo.size() ; i++ ) {
-			System.out.println("Sur ChatS on a reçu : " + message );
 			listeAbo.get(i).postMessage(message);
 		}
 	}

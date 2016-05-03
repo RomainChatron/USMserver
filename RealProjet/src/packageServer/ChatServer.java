@@ -19,17 +19,11 @@ public class ChatServer extends UnicastRemoteObject implements _ChatServer {
 
 	@Override
 	public void register(String nomChat, _ChatC client) throws RemoteException {
-		System.out.println("on rentre dans le register");
 		if(lesChat.containsKey(nomChat)) {
-			System.out.println("on est dans le contains");
 			lesChat.get(nomChat).register(client);
-			System.out.println("on a register");
 		} else {
-			System.out.println("il contient pas, on crée");
 			lesChat.put(nomChat, new ChatS(this, nomChat));
-			System.out.println("on a créé");
 			lesChat.get(nomChat).register(client);
-			System.out.println("on a register");
 		}
 	}
 
@@ -45,7 +39,6 @@ public class ChatServer extends UnicastRemoteObject implements _ChatServer {
 	@Override
 	public void postMessage(String nomChat, String message) throws RemoteException {
 		if(lesChat.containsKey(nomChat)) {
-			System.out.println("On a reçu sur ChatServer : " + message);
 			lesChat.get(nomChat).postMessage(message);
 		} else {
 			// TODO : créer Exception à throw ici
