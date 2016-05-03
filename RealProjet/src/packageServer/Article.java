@@ -20,7 +20,7 @@ public class Article extends UnicastRemoteObject implements _Article {
 	}
 	
 	public Article(int idA, String date, int idDi) throws RemoteException {
-		setDateA(date);
+		setIdA(idA);
 		setDateA(date);
 		setIdDi(idDi);
 	}

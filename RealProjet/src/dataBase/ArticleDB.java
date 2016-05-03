@@ -1,12 +1,14 @@
 package dataBase;
 
+import java.rmi.RemoteException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import kernel.Article;
+import packageServer.Article;
+
 
 // TODO: Auto-generated Javadoc
 /**
@@ -36,7 +38,7 @@ public class ArticleDB {
 		}
 	}
 	
-	public static ArrayList<Article> getArticles(final int idG) {
+	public static ArrayList<Article> getArticles(final int idG) throws RemoteException {
         try {
             ConnectionDB con = new ConnectionDB();
             ArrayList<Article> info = new ArrayList<Article>();
