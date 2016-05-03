@@ -25,7 +25,6 @@ public class Server {
 		String urlUserGroupDB = "rmi://"+IPSERVER+":"+PORT+"/UserGroupDB";
 		String urlGroupDB = "rmi://"+IPSERVER+":"+PORT+"/GroupDB";
 		String urlTaskDB = "rmi://"+IPSERVER+":"+PORT+"/TaskDB";
-
 		String urlDataDB = "rmi://"+IPSERVER+":"+PORT+"/DataDB";
 		String urlArticleDB = "rmi://"+IPSERVER+":"+PORT+"/ArticleDB";
 		String urlDataArticleDB = "rmi://"+IPSERVER+":"+PORT+"/DataArticleDB";
@@ -39,7 +38,6 @@ public class Server {
 			_UserGroupDB userGroupDB = new UserGroupDB();
 			_GroupDB GroupDB = new GroupDB();
 			_TaskDB TaskDB = new TaskDB();
-
 			_DataDB DataDB = new DataDB();
 			_ArticleDB ArticleDB = new ArticleDB();
 			_DataArticleDB DataArticleDB = new DataArticleDB();
