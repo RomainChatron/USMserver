@@ -1,7 +1,11 @@
 package dataBase;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.*;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class ConnectionDB.
  */
@@ -79,10 +83,13 @@ public class ConnectionDB {
 	 *
 	 * @param connection the new connection
 	 */
-	public void setConnection(Connection connection) {
+	public static void setConnection(Connection connection) {
 		ConnectionDB.connection = connection;
 	}
 	
+	/**
+	 * Close db.
+	 */
 	public void closeDB() {
 		try {
 			connection.close();
@@ -91,23 +98,29 @@ public class ConnectionDB {
 		}
 	}
 	
-	public void addColumnDB(final String nameT, final String typeC, final String nameC) {
+	public static void addColumnDB(final String nameT, final String typeC, final String nameC) {
 		try {
 			ConnectionDB con = new ConnectionDB();
-			String req = "ALTER TABLE ? ? ADD ?";
-			PreparedStatement st = con.getConnection().prepareStatement(req);
-			st.setString(1, nameT);
-			st.setString(2, typeC);
-			st.setString(3, nameC);
-			st.executeQuery();
-			System.out.println("");
+			String req = "ALTER TABLE "+nameT+" ADD "+nameC+" "+typeC+"";
+			Statement st = con.getConnection().createStatement();
+			st.execute(req);
+			System.out.println("Column: "+nameC+" has been added int the Table: "+nameT+"");
 			st.close();
 			con.closeDB();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		
+	}
+	
+	public static void createDB() {
+		try {
+			ConnectionDB con = new ConnectionDB("jdbc:mysql://localhost", user, pwd);
+			ScriptRunner runner = new ScriptRunner(con.getConnection(), new Boolean("false"), new Boolean("true"));
+			runner.runScript(new BufferedReader(new FileReader("usm.sql")));
+			
+		} catch(SQLException | IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
 }
