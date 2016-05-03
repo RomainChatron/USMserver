@@ -70,6 +70,14 @@ public abstract class $Task extends UnicastRemoteObject implements _Task {
 	public TypeTask getTt() {
 		return tt;
 	}
+	
+	public String getTtString() {
+		return tt.getGrade();
+	}
+	
+	public int getRank(){
+		return tt.getRank();
+	}
 
 	public void setTt(TypeTask tt1) {
 		tt = tt1;

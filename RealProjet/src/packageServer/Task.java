@@ -38,8 +38,9 @@ public class Task extends $Task {
 		setDesc(desc);
 		//*TODO: setDate -> NOW *//
 		setDeadLine(deadLine);
+		setIdG(idG);
 		setDone(false);
-		setTt(TypeTask.Low);
+		setTt(tt);
 		//listST = new ArrayList<SubTask>();
 	}
 

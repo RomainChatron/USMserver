@@ -3,6 +3,8 @@ package vInterface;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
+import packageServer.TypeTask;
+
 public interface _Task extends Remote {
 	
 	//public void addSubTask(SubTask ST) throws RemoteException ;
@@ -16,6 +18,8 @@ public interface _Task extends Remote {
 	public boolean isDone() throws RemoteException ;
 	public int getIdG() throws RemoteException ;
 	public int getIdT() throws RemoteException ;
+	public String getTtString() throws RemoteException ;
+	public int getRank() throws RemoteException ;
 	
 	public void setIdT(int idT) throws RemoteException ;
 	public void setDesc(String desc1) throws RemoteException ;
@@ -24,6 +28,6 @@ public interface _Task extends Remote {
 	public void setDeadLine(String deadLine1) throws RemoteException ;
 	public void setDone(boolean isDone1) throws RemoteException ;
 	public void setIdG(int idG) throws RemoteException ;
-	
+
 
 }
