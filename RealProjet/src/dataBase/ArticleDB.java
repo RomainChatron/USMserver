@@ -1,6 +1,7 @@
 package dataBase;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,21 +9,30 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import packageServer.Article;
+import vInterface._Article;
+import vInterfaceDB._ArticleDB;
+import vInterfaceDB._DataArticleDB;
 
 
 // TODO: Auto-generated Javadoc
 /**
  * The Class ArticleDB.
  */
-public class ArticleDB {
+@SuppressWarnings("serial")
+public class ArticleDB extends UnicastRemoteObject implements _ArticleDB{
 	
+	public ArticleDB() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	/**
 	 * Adds the article.
 	 *
 	 * @param idA the id a
 	 * @param idDi the id di
 	 */
-	public static void addArticle(final int idA, final int idDi) {
+	public void addArticle(final int idA, final int idDi) {
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "INSERT INTO Article (idA, idDi) VALUES (?,?)";
@@ -38,16 +48,20 @@ public class ArticleDB {
 		}
 	}
 	
-	public static ArrayList<Article> getArticles(final int idG) throws RemoteException {
+	public ArrayList<_Article> getArticles(final int idG) {
         try {
             ConnectionDB con = new ConnectionDB();
-            ArrayList<Article> info = new ArrayList<Article>();
+            ArrayList<_Article> info = new ArrayList<>();
             Article a = null;
             String req = "SELECT idA, dateA, idDi FROM Article NATURAL JOIN Diary WHERE idG="+idG+"";
             Statement stmt = con.getConnection().createStatement();
             ResultSet rset = stmt.executeQuery(req);
             while(rset.next()) {
-            	a = new Article(rset.getInt(1), rset.getString(2), rset.getInt(3));
+            	try {
+					a = new Article(rset.getInt(1), rset.getString(2), rset.getInt(3));
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
                 info.add(a);
             }
             return info;
@@ -61,7 +75,7 @@ public class ArticleDB {
 	 *
 	 * @param idA the id a
 	 */
-	public static void removeArticle(final int idA) {
+	public void removeArticle(final int idA) {
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "DELETE FROM Article WHERE idA=?";
@@ -76,7 +90,7 @@ public class ArticleDB {
 		}
 	}
 	
-	public static int getMaxArticle() {
+	public int getMaxArticle() {
 		try {
 			int maxIdA = 0;
 			ConnectionDB con = new ConnectionDB();

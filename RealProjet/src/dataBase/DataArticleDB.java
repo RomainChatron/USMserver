@@ -1,14 +1,24 @@
 package dataBase;
 
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class DataArticleDB {
+import vInterfaceDB._DataArticleDB;
+
+@SuppressWarnings("serial")
+public class DataArticleDB extends UnicastRemoteObject implements _DataArticleDB {
 	
-	public static void addDataArticle(final int idA, final int idDa){
+	public DataArticleDB() throws RemoteException {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public void addDataArticle(final int idA, final int idDa){
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "INSERT INTO DataArticle (idA, idDa) VALUES (?,?)";
@@ -24,7 +34,7 @@ public class DataArticleDB {
 		}
 	}
 	
-	public static ArrayList<Integer> getDatas(final int idA) {
+	public ArrayList<Integer> getDatas(final int idA) {
         try {
             ConnectionDB con = new ConnectionDB();
             ArrayList<Integer> info = new ArrayList<Integer>();
@@ -40,7 +50,7 @@ public class DataArticleDB {
         }
     }
 	
-	public static ArrayList<String> getDatasName(final int idA) {
+	public ArrayList<String> getDatasName(final int idA) {
         try {
             ConnectionDB con = new ConnectionDB();
             ArrayList<String> info = new ArrayList<String>();
@@ -56,7 +66,7 @@ public class DataArticleDB {
         }
     }
 	
-	public static void removeDataArticle(final int idA, final int idDa){
+	public void removeDataArticle(final int idA, final int idDa){
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "DELETE FROM DataArticle WHERE idA=? AND idDa=?";

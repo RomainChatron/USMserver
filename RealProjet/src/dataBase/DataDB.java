@@ -1,8 +1,12 @@
 package dataBase;
 
 import java.io.*;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import vInterfaceDB._DataDB;
 
 import java.sql.*;
 
@@ -11,8 +15,13 @@ import java.sql.*;
 /**
  * The Class DataDB.
  */
-public class DataDB {
+@SuppressWarnings("serial")
+public class DataDB extends UnicastRemoteObject implements _DataDB {
 	
+	public DataDB() throws RemoteException {
+		super();
+	}
+
 	/** The Constant BUFFER_SIZE. */
 	private static final int BUFFER_SIZE = 4096;
 	
@@ -21,7 +30,7 @@ public class DataDB {
 	 *
 	 * @param filePath the file path
 	 */
-	public static void addData(final String filePath) {
+	public void addData(final String filePath) {
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "INSERT INTO Data (nameDa, typeDa, data) VALUES (?,?,?)";
@@ -42,7 +51,7 @@ public class DataDB {
 		}
 	}
 	
-	public static void addDataTxt(final String txt) {
+	public void addDataTxt(final String txt) {
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "INSERT INTO Data (nameDa, typeDa, data) VALUES (?,?,?)";
@@ -59,7 +68,7 @@ public class DataDB {
 		}
 	}
 	
-	public static String getDataTxt(final int idDa) {
+	public String getDataTxt(final int idDa) {
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "SELECT data FROM Data WHERE idDa=?";
@@ -87,7 +96,7 @@ public class DataDB {
 	 * @param idDa the id da
 	 * @param filePath the file path
 	 */
-	public static void saveData(final int idDa, final String filePath) {
+	public void saveData(final int idDa, final String filePath) {
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "SELECT nameDa, data FROM Data WHERE idDa=?";
@@ -115,7 +124,7 @@ public class DataDB {
 		}
 	}
 	
-	public static Boolean isDataTxt(final int idDa) {
+	public Boolean isDataTxt(final int idDa) {
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "SELECT typeDa FROM Data WHERE idDa=?";
@@ -136,7 +145,7 @@ public class DataDB {
 	 *
 	 * @param idDa the id da
 	 */
-	public static void removeData(final int idDa) {
+	public void removeData(final int idDa) {
 		try {
 			ConnectionDB con = new ConnectionDB();
 			String req = "DELETE FROM Data WHERE idDa = ? LIMIT 1";
